@@ -1,3 +1,8 @@
+# bashrc
+
+# Add this lines at the top of .bashrc:
+[[ $- == *i* ]] && source -- ~/.local/share/blesh/ble.sh --attach=none
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -158,6 +163,13 @@ export FZF_ALT_C_COMMAND='fd --type directory --max-depth 1 --exclude ".*" .'
 # ────────────────────────────────────────────────────────────────
 # PS1 Prompt design with starship
 # ────────────────────────────────────────────────────────────────
+
+# Alternatives to starship
+#if [ "$TERM" != "linux" ]; then
+    #source /home/nice/Dokumente/git/shell-ng/shell-ng.plugin.bash # very good
+    #source /home/nice/Dokumente/git/pureline/pureline ~/.pureline.conf # good
+#fi
+
 eval "$(starship init bash)"
 
 # fzf integration für bash (Debian-Style)
@@ -172,3 +184,7 @@ else
   export TERM="xterm-256color"
 fi
 
+# Add this line at the end of .bashrc:
+[[ ! ${BLE_VERSION-} ]] || ble-attach
+
+#source /home/nice/.local/share/lscolors.sh
