@@ -1,0 +1,22 @@
+# ~/.blerc for ble.sh 0.4.0-devel4
+
+# --- Suggestion color ---
+# Adjust number: 242 = light gray, 238 = dark gray
+ble-face auto_complete=fg=242
+
+ble-face filename_character=fg=231,bg=black,underline
+ble-face filename_directory=fg=#d67b3e # default folder color
+ble-face filename_directory_sticky=fg=180
+ble-face region_insert=fg=#d3c202 # while autocompletion
+ble-face filename_executable=fg=#d3c202,underline
+ble-face filename_ls_colors=fg=#d3c202
+ble-face filename_other=fg=#d3c202
+ble-face syntax_default=fg=#8c8c8c
+
+# --- Keybindings inside the auto_complete keymap ---
+# Rebind Ctrl-Y to accept inline suggestion
+ble-bind -m auto_complete -f 'C-y' 'auto_complete/@end insert'
+
+# (Optional) disable Ctrl-F if you don't want it anymore
+ble-bind -m auto_complete -f 'C-f' ''
+
