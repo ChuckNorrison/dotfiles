@@ -1,0 +1,285 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+scan_timeout = 200   # in milliseconds; try 100–500 depending on your needs
+# ### ------------
+# ### "Power10 bg"
+# ### ------------
+# ### Variant 2 with background: two line prompt, with background in top line, separators on left side
+# - This preset is inspi#f7768e by a [powerlevel10k](https://github.com/romkatv/powerlevel10k) configuration variant.
+#
+# - Recommended / tested with Font 'MesloLGS NF Regular' from: Meslo Nerd Font patched for Powerlevel10k
+#   Link: https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#manual-font-installation
+#         --> "Manual font installation", with currently 4 Font Types
+
+# - If you do not want the filling solid line in top row:
+#   set the fill symbol to ' '
+# - Shell [shell]:
+#   If you want to see the content of the shell module, search for [shell] and change 'disabled = true' to false
+# - '$line_break': everything from the next line on refers to the second line of the prompt
+# - Some modules listed further down will not show up (all the time), as their default value is 'disabled = true' or
+#   they are only displayed under certain conditions
+# - added but disabled modules: [battery], [time]
+#   - if you want to see them: search for the module and set 'disabled' to 'false' 
+# - Symbols:
+#   Don't be confused if you don't see any "real" symbols here. If Nerd-fonts are installed on your system, it should work.
+
+# Customizing the prompt (and placing desi#f7768e modules at desi#f7768e position and sequence):
+# ╭╴ # \u256D\u2574
+# ╰╴ # \u2570\u2574
+format = """
+[╭╴](fg:#0ef19e)\
+$os\
+$shell\
+$username\
+$hostname\
+$sudo\
+$directory\
+$direnv\
+$php\
+$python\
+$git_branch$git_commit$git_state$git_metrics$git_status\
+[ ](fg:#1a1b26)\
+$fill\
+$fill\
+[ ](fg:#1a1b26)\
+$status\
+$jobs\
+$memory_usage\
+$cmd_duration\
+$battery\
+$time\
+$line_break\
+\
+[╰╴](fg:#0ef19e)\
+[$character]($style)"""
+
+# move the rest of the prompt to the right
+right_format = """
+[$localip]($style)"""
+
+# Inserts a blank line between shell prompts:
+add_newline = true
+
+# Customization and activation of some modules:
+# Listed in the order of their position in the module row above
+[os]
+format = "[](fg:#1a1b26)[$symbol]($style)(bg:#1a1b26)"
+style = "fg:#AAAAAA bg:#1a1b26"
+disabled = false
+
+[os.symbols]
+AIX = "AIX "
+Alpaquita = "\uf26a " # \uf26a  # \ue3a5\ue390 
+AlmaLinux = "\uf31d " # 
+Alpine = "\uf300 " # ""
+Amazon = "\uf270 " # ""
+Android = "\ue70e " # ""
+Arch = "\uf303 " # ""
+Artix = "\uf31f " # 
+CentOS = "\uf304 " # ""
+Debian = "\uf306 " # ""
+DragonFly = "\ueef8 " #    🐉
+Emscripten = "\u26A1 " # ⚡
+EndeavourOS = "\uf322 " # "" # 
+Fedora = "\uf30a " # ""
+FreeBSD = "\uf30c " # ""
+Garuda = "\uf337 " # ""
+Gentoo = "\uf30d " # ""
+HardenedBSD = "\uf132 " # 
+Illumos = "\uf326 " # "🐦"
+Kali = "\uf327 " # 
+Linux = "\uf17c " # ""
+Mabox = "\uf1b2 " #  📦
+Macos = "\uf302 " # ""
+Manjaro = "\uf312 " # ""
+Mariner = "\ue7ae " # \ue7ae 
+MidnightBSD = "\ue3e0 " # 🌘
+Mint = "\uf30e " # ""
+NetBSD = "\u2691 " # ⚑
+NixOS = "\uf313 " # ""
+OpenBSD = "\uf328 " # ""
+OpenCloudOS = "\uf0c2 " # 
+openEuler = "\u2208 " # \u2208 ∈
+openSUSE = "\uf314 " # ""
+OracleLinux = "\u213A " # \u213A ℺ # ⊂⊃ \u2282\u2283
+Pop = "\uf32a " # ""
+Raspbian = "\uf315 " # ""
+#f7768ehat = "\uf316 " # "" # 󱄛
+#f7768eHatEnterprise = "\uf316 " # "" # 󱄛
+RockyLinux = "\uf32b " # 
+#f7768eox = "\uf331 " #   󰺕
+Solus = "\uf32d " # "" # " "
+SUSE = "\uef6d " # ""
+Ubuntu = "\uf31b " # ""
+Ultramarine = "󱙳 " # 🔷
+Unknown = "\uf108 " # ""
+Void = "\uf32e " #  
+Windows = "\uf17a " # ""
+
+[shell]
+format = '[$indicator]($style)()'
+style = 'fg:surface1 bg:#1a1b26'
+# empty indicator (''): e.g. if you do not want to see indicator for your standard shell
+zsh_indicator = '%_ ' # '%_ ' '󰰶 '
+bash_indicator = '\$_ ' # "\uebca " ' ' '\$_ '
+fish_indicator = '>> ' # "\uee41 " '󰈺 ' '>>_ '
+powershell_indicator = '>_ ' # "\uebc7 " ' ' '>_'
+unknown_indicator = '?_ ' # '?_ ' ' '
+disabled = true # set to false if you want to see the shell indicator
+
+[username]
+format = '[ ](fg:#9ece6a bold bg:#1a1b26)[$user]($style)[ ](bg:#1a1b26)'
+style_user = 'fg:#9ece6a bold bg:#1a1b26'
+style_root = 'fg:#f7768e bold bg:#1a1b26'
+show_always = false
+disabled = false
+
+[hostname]
+format = '[$ssh_symbol ](fg:#9ece6a bold bg:#1a1b26)[$hostname](fg:#9ece6a bold bg:#1a1b26)[ ](bg:#1a1b26)'
+ssh_only = true
+ssh_symbol = '' # '⇒' # ' ' # 'ﬁ⇒'
+#trim_at = '.companyname.com'
+disabled = false
+
+[sudo]
+format = '[ ](fg:#f7768e bold bg:#1a1b26)[ $symbol]($style)'
+style = 'fg:#f7768e bold bg:#1a1b26'
+symbol = ' ' # ' ❯ '
+disabled = false
+
+[directory]
+format = '[ ](fg:#4e8db2 bold bg:#1a1b26)[$read_only]($read_only_style)[$repo_root]($repo_root_style)[$path ]($style)'
+style = 'fg:#4e8db2 bold bg:#1a1b26'
+home_symbol = ' ~'
+read_only = ' ' # ' ' # ' ''
+read_only_style = 'fg:#4e8db2 bg:#1a1b26'
+truncation_length = 3
+truncation_symbol = '…/'
+truncate_to_repo = true
+repo_root_format = '[ ](fg:#4e8db2 bold bg:#1a1b26)[$read_only]($read_only_style)[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path ]($style)'
+repo_root_style	= 'fg:#4e8db2 bold bg:#1a1b26'
+use_os_path_sep = true
+disabled = false
+
+[direnv]
+symbol = 'direnv'
+style = 'fg:#0ef19e bold bg:#1a1b26'
+format = "[❯ $symbol $loaded/$allowed ]($style)"
+allowed_msg = 'a' # 'ok' # '✓'
+not_allowed_msg = '!a' # 'nok' # '!'
+denied_msg = 'x' # '✘'
+loaded_msg = '+' # "\ueabc" # \ueabc  # '->' # 'yo' # '󰗡' # \udb81\udde1 # '󱥸✓' # '󱥸✓' # 
+unloaded_msg = '-' # "\ueabc!" # \ueabc ! # '->!' # 'no' # '󰅚' # '󱥸!' \udb86\udd78
+disabled = false
+
+[php]
+format = "[[ \u3009](fg:#7aa2f7 bg:#1a1b26)[$symbol](fg:#7aa2f7 italic bg:#1a1b26)($version )]($style)"
+style = 'fg:#7aa2f7 bg:#1a1b26)'
+symbol = "php " # \ue73d  # 󰌟
+
+[python]
+format = "[\u3009${symbol}${pyenv_prefix}(${version} )(($virtualenv) )]($style)"
+style = 'fg:#e0af68 bg:#1a1b26'
+symbol = "\ue73c " # 
+pyenv_version_name = true
+
+[git_branch]
+format = '[❯ $symbol $branch(:$remote_branch)]($style)[ ](bg:#1a1b26)'
+style = 'fg:#ff9e64 bg:#1a1b26'
+symbol = ''
+#ignore_branches = ['master', 'main']
+
+[git_commit]
+format = '[\($hash$tag\)]($style)[ ](bg:#1a1b26)'
+style = 'fg:#ff9e64 bg:#1a1b26'
+commit_hash_length = 8
+tag_symbol = '  ' # '  ''
+tag_disabled = false
+disabled = false
+
+[git_metrics]
+format = '[\[+$added/]($added_style)[-$deleted\]]($deleted_style)[ ](bg:#1a1b26)'
+added_style = 'fg:#ff9e64 bg:#1a1b26'
+deleted_style = 'fg:#ff9e64 bg:#1a1b26'
+disabled = false
+
+[git_status]
+format = '([$all_status$ahead_behind]($style))'
+style = 'fg:#ff9e64 bg:#1a1b26'
+conflicted = '[${count} ](fg:#f7768e bg:#1a1b26)'
+ahead = '[⇡${count} ](fg:#e0af68 bg:#1a1b26)'
+behind = '[⇣${count} ](fg:#e0af68 bg:#1a1b26)'
+diverged = '[⇕${ahead_count}⇡${behind_count}⇣ ](fg:#e0af68 bg:#1a1b26)' # ⇕ ↕ ⇳ 󰹹 󰹺 󰧈
+up_to_date = '[✓ ](fg:#9ece6a bg:#1a1b26)'
+untracked = '[ﳇ${count} ](fg:#f7768e bg:#1a1b26)' # ' ' # '? '
+stashed = '[📦${count} ](fg:#A52A2A bg:#1a1b26)' # '📦 '# ' ' # ' ' # ' ' # ' '
+modified = '[󰷉${count} ](fg:#C8AC00 bg:#1a1b26)' # '📝' # '! ' #  #  # 
+staged = '[${count} ](fg:#9ece6a bg:#1a1b26)' # '+ '
+renamed = '[${count} ](fg:#e0af68 bg:#1a1b26)' # ' ' # '﫦' # ᴂ #  #  #  # ﳳ
+deleted = '[﯊${count} ](fg:#ff9e64 bg:#1a1b26)' # '🗑 ' '- '
+disabled = false
+
+[fill]
+style = 'fg:#0ef19e'
+symbol = "\u2500" # "\u2500" "─" # no line: ' '
+
+[status]
+#format = '[$symbol $status $hex_status(  $signal_name($signal_number))]($style)'
+#format = '[$symbol $common_meaning$signal_name-$signal_number]($style)'
+format = '[$symbol $common_meaning$signal_name$maybe_int]($style) '
+style = 'fg:#f7768e bg:#1a1b26'
+#failure_style = 'fg:#f7768e bg:#1a1b26'
+success_style = 'fg:#4e8db2 bg:#1a1b26'
+#symbol = ' ✘'
+success_symbol = ""
+disabled = false
+map_symbol = true
+#sigint_symbol = ""
+#signal_symbol = ""
+#not_executable_symbol = ""
+#not_found_symbol = ""
+
+[jobs]
+format = "[ \ueab5 ](fg:#7aa2f7 bold bg:#1a1b26)[$symbol $number]($style)"
+style = 'fg:#7aa2f7 bg:#1a1b26'
+symbol = "\ueb7b" # \ueb7b  \uef0c 省 # '廒' # '󰜎' # ''
+symbol_threshold = 1
+number_threshold = 2
+disabled = false
+
+[memory_usage]
+format = "[ \ueab5 ](fg:#9d7cd8 bold bg:#1a1b26)[$symbol ${ram} ${swap}]($style)"
+style = 'fg:#9d7cd8 bg:#1a1b26'
+symbol = '﬙ 北' # '﬙ 痢' # '﬙ / 󰾵' # '󰍛 󰾵' # '﬙ 󰾴' # '﬙ 󰾶' # '﬙ 󰾷' '﬙ 󰣂'
+threshold = 75
+disabled = false
+
+[cmd_duration]
+format = "[ \ueab5 \uf017 $duration]($style)" # \ueab5 \uf017   
+style = 'fg:#e0af68 bg:#1a1b26'
+min_time = 500
+disabled = false
+
+[battery]
+format = "[ \ueab5 $symbol$percentage]($style)"
+full_symbol = '󰁹 '
+charging_symbol = '󰂄 '
+discharging_symbol = '󰂃 '
+unknown_symbol = '󰁽? '
+empty_symbol = '󰂎 '
+disabled = true # set to 'false', if you want to see the battery status
+
+[[battery.display]]
+threshold = 100 # show always
+style = 'fg:#0ef19e bg:#1a1b26'
+
+[time]
+format = "[ \ueab5 $time]($style)"
+style = 'fg:#0ef19e bg:#1a1b26'
+disabled = true # set to 'false', if you want to see the time
+
+[localip]
+format = '[$localipv4](fg:#9ece6a bold)'
+ssh_only = true
+disabled = false
